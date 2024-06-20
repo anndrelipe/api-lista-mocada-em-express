@@ -145,6 +145,27 @@ app.put('/tasks/:id', async (req, res) => {
 
 });
 
+app.delete('/tasks/:id', async (req, res) => {
+    const id = req.params.id;
+
+    let listaTarefas = await fs.promises.readFile(JSON_DIR_NAME, 'utf-8')
+    listaTarefas = JSON.parse(listaTarefas)
+
+    const index = listaTarefas.findIndex((item) => item["task_id"] === parseInt(id))
+    let lista = [...listaTarefas]
+    lista.splice(index, 1)
+    
+    fs.writeFile(JSON_DIR_NAME, JSON.stringify(lista, null, 2), {
+        flag : "w"
+    }, (err) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.status(200).json({mensagem:'Sucesso, item deletado'})
+        }
+    })
+})
+
 
 
 
