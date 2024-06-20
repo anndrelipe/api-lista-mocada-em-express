@@ -3,12 +3,12 @@
     "task_id": 2,
     "title": "DESENVOLVER API COM EXPRESS",
     "description": "CODAR E OUVIR MUSICA, TIREI FAZER CHA",
-    "status": "OKAY"
+    "status": "FEITO"
   },
   {
-    "task_id": 3,
-    "title": "DORMIR",
-    "description": "FECHAR OS OLINHOS E FICAR FELIZINHO",
+    "task_id": 4,
+    "title": "LER",
+    "description": "LEITURA FILOSOFICA",
     "status": "NAO OKAY"
   }
 ]
