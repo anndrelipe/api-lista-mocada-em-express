@@ -22,17 +22,10 @@ app.get('/', (req, res) => {
 
 app.get('/tasks', async (req, res) => {
 
-    const retornaPromise = (url) => {
-        return new Promise ((resolve) => {
-            fs.readFile(url, {}, (err, data) => {
-            const parseData = JSON.parse(data);
-            resolve(parseData);
-            }); 
-        });
-    }
+    let listaTarefas = await fs.promises.readFile(JSON_DIR_NAME, 'utf-8');
+    listaTarefas = JSON.parse(listaTarefas)
 
-    const data = await retornaPromise(JSON_DIR_NAME);
-    res.status(200).json(data);
+    res.status(200).json(listaTarefas);
 });
 
 
@@ -40,25 +33,16 @@ app.get('/tasks/:id', async (req, res) => {
     const id = req.params.id;
     const verifyId = [];
 
-    const retornaPromise = (url) => {
-        return new Promise ((resolve) => {
-            fs.readFile(url, {}, (err, data) => {
-                const parseData = JSON.parse(data);
-                resolve(parseData);
-            });
-        });
-    };
+    let listaTarefas = await fs.promises.readFile(JSON_DIR_NAME, 'utf-8');
+    listaTarefas = JSON.parse(listaTarefas);
 
-    const data = await retornaPromise(JSON_DIR_NAME);
-
-    for (const item of data) {
+    for (const item of listaTarefas) {
         verifyId.push(item.task_id);
     };
 
     if (verifyId.includes(parseInt(id))) {
-        const index = data.findIndex((item) => item.task_id === parseInt(id))
-        console.log(index)
-        res.status(200).json(data[index]);
+        const index = listaTarefas.findIndex((item) => item.task_id === parseInt(id))
+        res.status(200).json(listaTarefas[index]);
     } else {
         res.status(404).json({mensagem : 'id não encontrado'});
     };
